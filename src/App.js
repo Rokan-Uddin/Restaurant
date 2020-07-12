@@ -1,18 +1,14 @@
 import React from 'react';
-import {Button,Navbar, NavbarBrand } from 'reactstrap';
+import Menu from './components/Menu';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-    <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="/">Start</NavbarBrand>
-          </div>
-    </Navbar>
-    <Button color="danger">Danger!</Button>
+    <Menu />
     </div>
   );
+
 }
 
 export default App;
