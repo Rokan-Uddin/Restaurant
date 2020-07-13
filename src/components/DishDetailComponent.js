@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import {Card,CardImg,CardTitle,CardBody,CardText} from 'reactstrap';
-import moment from "moment";
 class DishDetailComponent extends Component {
 	render() {
 		const commentlist = this.props.dish.comments.map((comments) => {
             return (
               <div>
               	<p> {comments.comment} </p>
-              	<p>--{comments.author}, { moment(comments.date).format("MMM DD, yyyy") }</p>
+              	<p>--{comments.author}, {new Intl.DateTimeFormat('en-US',
+              						 { year: 'numeric', month: 'short', day: '2-digit'})
+              					.format(new Date(Date.parse(comments.date)))}</p>
        
               </div>
             );
