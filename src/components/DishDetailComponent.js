@@ -37,11 +37,10 @@
 // 	}
 // }
 // export default DishDetailComponent;
- import React, { Component } from 'react';
+ import React from 'react';
  import {Card,CardImg,CardTitle,CardBody,CardText} from 'reactstrap';
-class DishDetailComponent extends Component {
 
-    renderComments(comments) {
+    function RenderComments({comments}) {
         if (comments == null) {
             return (<div></div>)
         }
@@ -70,7 +69,7 @@ class DishDetailComponent extends Component {
             </div>
         )
     }
-    renderDish(dish) {
+    function RenderDish({dish}) {
         if (dish != null) {
             return (
                 <div className="col-12 col-md-5 m-1">
@@ -89,22 +88,22 @@ class DishDetailComponent extends Component {
             return (<div></div>)
         }
     }
-    render() {
-        const dish = this.props.dish
+    const DishDetailComponent=(props) => {
+        const dish = props.dish
         if (dish == null) {
             return (<div></div>)
         }
-        const dishItem = this.renderDish(dish)
-        const commentItem = this.renderComments(dish.comments)
+        // const dishItem = this.renderDish(dish)
+        // const commentItem = this.renderComments(dish.comments)
         return (
           <div className="container">
             <div className='row'>
-                {dishItem}
-                {commentItem}
+                <RenderDish dish={dish} />
+                <RenderComments comments={dish.comments} />
             </div>
           </div>
         )
     }
-}
+
 
 export default DishDetailComponent
