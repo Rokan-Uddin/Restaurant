@@ -20,8 +20,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
         }
         handleLogin(event) {
         this.toggleModal();
-        alert("Your Name: " + event.username+"Comments :" +event.comment+"Rating:"+event.rating);
-        }
+        this.props.addComment(this.props.dishId, event.rating, event.author, event.comment);        }
         render(){
             return(  <div>
                 <Button outline onClick={this.toggleModal} ><span className="fa fa-pencil fa-lg"></span> Submit Comments</Button>
@@ -42,16 +41,16 @@ const minLength = (len) => (val) => val && (val.length >= len);
                   </Col>
               </Row>
               <Row className="form-group">
-                  <Label htmlFor="username" md={12}>Your Name</Label>
+                  <Label htmlFor="author" md={12}>Your Name</Label>
                   <Col md={12}>
-                      <Control.text model=".username" id="username" className="form-control"
-                              name="username" placeholder="Your Name"
+                      <Control.text model=".author" id="author" className="form-control"
+                              name="author" placeholder="Your Name"
                               validators={{
                                   required, 
                                   minLength: minLength(3),
                                   maxLength: maxLength(15)
                               }} />
-                      <Errors className="text-danger" model=".username"
+                      <Errors className="text-danger" model=".author"
                               show="touched"
                               messages={{
                                   required: 'Required ',
@@ -83,7 +82,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
         }
     }
 
-    function RenderComments({comments}) {
+    function RenderComments({comments, addComment, dishId}) {
         if (comments == null) {
             return (<div></div>)
         }
@@ -108,7 +107,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                 <ul className='list-unstyled'>
                     {cmnts}
                 </ul>
-                < CommentForm />
+                <CommentForm dishId={dishId} addComment={addComment} />
             </div>
         )
     }
@@ -150,7 +149,10 @@ const minLength = (len) => (val) => val && (val.length >= len);
                 </div>
             <div className='row'>
                 <RenderDish dish={props.dish} />
-                <RenderComments comments={props.comments} />
+                <RenderComments comments={props.comments}
+        addComment={props.addComment}
+        dishId={props.dish.id}
+      />
             </div>
           </div>
         )
