@@ -61,7 +61,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
                               }}
                           />
                   </Col>
-              </Row>
+                 </Row>
               <Row className="form-group">
                   <Label htmlFor="comment" md={12}>Comment</Label>
                   <Col md={12}>
