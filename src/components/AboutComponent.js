@@ -1,38 +1,50 @@
 import React from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, CardTitle,  Card, CardBody,CardImg, CardImgOverlay, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
-function RenderLeader({leaders}) {
-    return (
-        <div className="row">
-            <Media> <div className="col-12 col-md-2 mr-1">
-                  <Media left top>
-                    <Media object src={leaders.image} art={leaders.name} />
-                  </Media> </div>
-                  <Media body>
-                    <Media heading>
-                      {leaders.name}
-                    </Media>
-                      <Media sub-heading>
-                      {leaders.name}
-                    </Media>
-                    <Media text>
-                    {leaders.description}
-                    </Media>
-                  </Media>
-            </Media>
-        </div>
-
-        );
-}
+import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
+import { Stagger, Fade } from 'react-animation-components';
 
 function About(props) {
-
-    const leaders = props.leaders.map((leader) => {
+    const leaders = props.leaders.leaders.map(leader => {
         return (
-            <RenderLeader leaders={leader} />
+            <div key={leader.id} className="mt-5"> 
+                      <RenderLeader leader ={leader} />
+                  </div>
         );
     });
 
+    function RenderLeader({leader}) {
+        if (props.leaders.isLoading) {
+            return(
+                    <Loading />
+            );
+        }
+        else if (props.leaders.errMess) {
+            return(
+                    <h4>{props.leaders. errMess}</h4>
+            );
+        }
+        else 
+        return (
+            <div key={leader.id} className="col-12 mt-5">
+             <Stagger in>
+                <Fade in>
+                    <Media tag="li">
+                        <Media left middle>
+                            <Media object src={baseUrl + leader.image} alt={leader.name} />
+                        </Media>
+                        <Media  body className="ml-5">
+                            <Media heading>{leader.name}</Media>
+                            <p>{leader.designation}</p>
+                            <p>{leader.description}</p>
+                        </Media>
+                    </Media>
+                </Fade>
+        </Stagger>
+            </div>
+          );
+    }
     return(
         <div className="container">
             <div className="row">

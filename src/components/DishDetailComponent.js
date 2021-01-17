@@ -183,15 +183,11 @@ const minLength = (len) => (val) => val && (val.length >= len);
             <div className='row'>
                 <RenderDish dish={props.dish} />
                 <RenderComments comments={props.comments}
-        postComment={props.postComment}
-        dishId={props.dish.id}
-      />
+                                postComment={props.postComment}
+                                dishId={props.dish.id} />
             </div>
           </div>
         )
         }
-
     }
-
-
 export default DishDetail
